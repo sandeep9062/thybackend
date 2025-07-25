@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
     "acorn": "^8.15.0",
     "acorn-jsx": "^5.3.2",
     "ajv": "^6.12.6",
@@ -211,7 +212,6 @@
     "picocolors": "^1.1.1",
     "picomatch": "^2.3.1",
     "possible-typed-array-names": "^1.1.0",
-    "postcss": "^8.5.6",
     "preact": "^10.26.9",
     "preact-render-to-string": "^5.2.6",
     "prelude-ls": "^1.2.1",
@@ -264,7 +264,7 @@
     "supports-color": "^7.2.0",
     "supports-preserve-symlinks-flag": "^1.0.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11",
+    "tailwind-variants": "^1.0.0",
     "tapable": "^2.2.2",
     "tar": "^7.4.3",
     "tinyglobby": "^0.2.14",
@@ -293,10 +293,19 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "vercel-build": "next build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  }
 }
