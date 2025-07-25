@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState } from "react";
@@ -61,7 +60,7 @@ const Portfolio = () => {
       <section id="home" className="flex flex-col items-center justify-center h-screen text-center px-4 bg-gradient-to-r from-blue-50 to-blue-100">
         <Image src="/sandeepsaini.jpg" alt="sandeep saini" width={200} height={200} className="rounded-2xl mb-4 shadow-md border-4 border-blue-100 transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:border-blue-300" />
 
-        <h1 className="text-5xl mb-8 md:text-6xl font-bold mb-4">
+        <h1 className="text-5xl md:text-6xl font-bold mb-4">
           Hi, I am <span className="text-blue-600">Sandeep Saini</span>
         </h1>
         <p className="text-xl mb-6">Full Stack Developer | MERN | Next.js | React</p>
