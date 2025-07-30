@@ -1,0 +1,63 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+
+import connectDB from "./config/db.js";
+
+// importing routes
+
+import contactRoutes from "./routes/contactRoutes.js";
+import backgroundImageRoutes from "./routes/backgroundImageRoutes.js";
+import businessContactRoutes from "./routes/businessContactRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
+import consultationRoutes from "./routes/consultationRoutes.js";
+import contentRoutes from "./routes/contentRoutes.js";
+import globalSettingsRoutes from "./routes/globalSettingsRoutes.js";
+import menuRoutes from "./routes/menuRoutes.js";
+import siteSettingsRoutes from "./routes/siteSettingsRoutes.js";
+import bloodTestRoutes from "./routes/bloodTestRoutes.js";
+
+import userRoutes from "./routes/userRoutes.js";
+
+dotenv.config();
+
+connectDB();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.json());
+
+app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send(`Server is running on PORT: ${PORT}`);
+});
+
+// API routes
+app.use("/api/v1/users", userRoutes);
+
+
+
+app.use("/api/contact", contactRoutes);
+app.use("api/consultationRoutes", consultationRoutes);
+app.use("api/serviceRoutes", serviceRoutes);
+app.use("/api/background-images", backgroundImageRoutes);
+app.use("/api/business-contact", businessContactRoutes);
+app.use("/api/content", contentRoutes);
+app.use("/api/settings", globalSettingsRoutes);
+app.use("/api/menu", menuRoutes);
+app.use("/api/site-settings", siteSettingsRoutes);
+app.use("/api/blood-tests", bloodTestRoutes);
+
+
+
+
+
+
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`✅ Server Running at http://localhost:${PORT}`);
+});
