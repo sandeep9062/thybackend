@@ -8,13 +8,14 @@ import {
   deleteBackgroundImage,
   reorderBackgroundImages,
 } from '../controllers/backgroundImageController.js';
+import { checkAdmin,protect } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.get('/', getBackgroundImages);
-router.post('/', upload.single('image'), addBackgroundImage);
-router.put('/:id', upload.single('image'), updateBackgroundImage);
-router.delete('/:id', deleteBackgroundImage);
-router.put('/reorder/all', reorderBackgroundImages);
+router.post('/',protect,checkAdmin,upload.single('image'), addBackgroundImage);
+router.put('/:id',protect,checkAdmin, upload.single('image'), updateBackgroundImage);
+router.delete('/:id',protect,checkAdmin,deleteBackgroundImage);
+router.put('/reorder/all',protect,checkAdmin,reorderBackgroundImages);
 
 export default router;

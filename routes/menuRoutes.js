@@ -6,13 +6,14 @@ import {
   deleteMenuItem,
   reorderMenuItems,
 } from '../controllers/menuController.js';
+import { checkAdmin, protect } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.get('/', getMenuItems);
-router.post('/', createMenuItem);
-router.put('/:id', updateMenuItem);
-router.delete('/:id', deleteMenuItem);
-router.put('/reorder/all', reorderMenuItems);
+router.post('/',protect,checkAdmin, createMenuItem);
+router.put('/:id',protect,checkAdmin,  updateMenuItem);
+router.delete('/:id',protect,checkAdmin,  deleteMenuItem);
+router.put('/reorder/all',protect,checkAdmin,  reorderMenuItems);
 
 export default router;

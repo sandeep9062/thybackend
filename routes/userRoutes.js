@@ -158,6 +158,7 @@ router.get("/profile", protect, async (req, res) => {
   res.json({ user: req.user, message: "User Data " });
 });
 
+
 // GET /api/v1/users/:id
 router.get("/:id", async (req, res) => {
   try {

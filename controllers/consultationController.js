@@ -1,5 +1,6 @@
 // controllers/consultationController.js
-import Consultation from "../models/Consultation.js";
+import { sendConsultationEmail } from "../utils/sendEmail.js";
+import Consultation from "../models/Consultation.js"
 
 export const submitConsultation = async (req, res) => {
   try {
@@ -22,7 +23,10 @@ export const submitConsultation = async (req, res) => {
 
     await newConsultation.save();
 
-    res.status(201).json({ message: "Consultation submitted successfully" });
+    // Send email to the owner
+    await sendConsultationEmail({ name, email, phone, address, description });
+
+    res.status(201).json({ message: "Consultation submitted and email sent" });
   } catch (error) {
     console.error("Error submitting consultation:", error);
     res.status(500).json({ error: "Server error" });

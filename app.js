@@ -16,6 +16,13 @@ import globalSettingsRoutes from "./routes/globalSettingsRoutes.js";
 import menuRoutes from "./routes/menuRoutes.js";
 import siteSettingsRoutes from "./routes/siteSettingsRoutes.js";
 import bloodTestRoutes from "./routes/bloodTestRoutes.js";
+import diagnosticRoutes from "./routes/diagnosticCentreRoutes.js";
+import sliderImageRoutes from "./routes/sliderImageRoutes.js";
+import offerRoutes from "./routes/offerRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import thyroidRoutes from "./routes/thyroidRoutes.js";
+import thyrocareProfileRoutes from "./routes/thyrocareProfileRoutes.js";
+
 
 import userRoutes from "./routes/userRoutes.js";
 
@@ -50,11 +57,12 @@ app.use("/api/settings", globalSettingsRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/site-settings", siteSettingsRoutes);
 app.use("/api/blood-tests", bloodTestRoutes);
-
-
-
-
-
+app.use("/api/centres", diagnosticRoutes);
+app.use("/api/sliders", sliderImageRoutes);
+app.use("/api/offers", offerRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/thyroid-packages", thyroidRoutes);
+app.use("/api/thyrocare-profile", thyrocareProfileRoutes);
 
 
 // Start server
