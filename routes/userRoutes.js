@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
       jwt.sign(
         payLoad,
         process.env.JWT_SECRET,
-        { expiresIn: "1hr" },
+        { expiresIn: "8hr" },
         (error, token) => {
           if (error) throw error;
 
