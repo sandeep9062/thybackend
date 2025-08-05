@@ -11,7 +11,7 @@ import { checkAdmin, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/",protect,checkAdmin,  createThyroidPackage);
+router.post("/",protect,checkAdmin,createThyroidPackage);
 router.get("/", getAllThyroidPackages);
 router.get("/:id", getThyroidPackageById);
 router.put("/:id",protect,checkAdmin,  updateThyroidPackage);

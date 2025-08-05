@@ -1,5 +1,4 @@
 import Service from "../models/Service.js";
-import fs from "fs";
 
 // Create new service
 export const createService = async (req, res) => {
@@ -13,10 +12,9 @@ export const createService = async (req, res) => {
       patients,
       isPopular,
       category,
+      image,     // image URL passed directly
       imageAlt,
     } = req.body;
-
-    const image = req.file?.path; // from multer/cloudinary
 
     const newService = await Service.create({
       title,
@@ -47,7 +45,7 @@ export const getAllServices = async (req, res) => {
   }
 };
 
-// Get single service
+// Get single service by ID
 export const getServiceById = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
@@ -63,24 +61,17 @@ export const deleteService = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
     if (!service)
-      return res
-        .status(404)
-        .json({ success: false, message: "Service not found" });
-
-    // Optional: delete image from cloudinary here if you're storing the public_id
-    // await cloudinary.uploader.destroy(service.imagePublicId);
+      return res.status(404).json({ success: false, message: "Service not found" });
 
     await Service.findByIdAndDelete(req.params.id);
 
-    res
-      .status(200)
-      .json({ success: true, message: "Service deleted successfully" });
+    res.status(200).json({ success: true, message: "Service deleted successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
-// Edit (update) a service
+// Update a service
 export const updateService = async (req, res) => {
   try {
     const {
@@ -92,6 +83,7 @@ export const updateService = async (req, res) => {
       patients,
       isPopular,
       category,
+      image,      // image passed as URL string
       imageAlt,
     } = req.body;
 
@@ -104,23 +96,16 @@ export const updateService = async (req, res) => {
       patients,
       isPopular,
       category,
+      image,
       imageAlt,
     };
 
-    if (req.file) {
-      updates.image = req.file.path; // replace image if new one uploaded
-    }
-
-    const updatedService = await Service.findByIdAndUpdate(
-      req.params.id,
-      updates,
-      { new: true }
-    );
+    const updatedService = await Service.findByIdAndUpdate(req.params.id, updates, {
+      new: true,
+    });
 
     if (!updatedService)
-      return res
-        .status(404)
-        .json({ success: false, message: "Service not found" });
+      return res.status(404).json({ success: false, message: "Service not found" });
 
     res.status(200).json({ success: true, service: updatedService });
   } catch (err) {

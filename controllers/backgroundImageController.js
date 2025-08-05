@@ -1,11 +1,12 @@
 // controllers/backgroundImageController.js
 import BackgroundImage from '../models/BackgroundImage.js';
 
-// Create new image
+
+
+// Create new image using URL from body (no file upload)
 export const addBackgroundImage = async (req, res) => {
   try {
-    const { alt, order } = req.body;
-    const url = req.file?.path;
+    const { url, alt, order } = req.body;
 
     if (!url || !alt || order === undefined) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -17,6 +18,7 @@ export const addBackgroundImage = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Get all images
 export const getBackgroundImages = async (req, res) => {

@@ -43,18 +43,19 @@ app.get("/", (req, res) => {
 });
 
 // API routes
-app.use("/api/v1/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 
 
 app.use("/api/contact", contactRoutes);
-app.use("api/consultationRoutes", consultationRoutes);
-app.use("api/serviceRoutes", serviceRoutes);
+app.use("/api/consult", consultationRoutes);
+app.use("/api/service", serviceRoutes);
 app.use("/api/background-images", backgroundImageRoutes);
 app.use("/api/business-contact", businessContactRoutes);
 app.use("/api/content", contentRoutes);
 app.use("/api/settings", globalSettingsRoutes);
 app.use("/api/menu", menuRoutes);
+
 app.use("/api/site-settings", siteSettingsRoutes);
 app.use("/api/blood-tests", bloodTestRoutes);
 app.use("/api/centres", diagnosticRoutes);

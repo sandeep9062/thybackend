@@ -13,8 +13,8 @@ import { checkAdmin,protect } from '../middlewares/authMiddleware.js';
 const router = express.Router();
 
 router.get('/', getBackgroundImages);
-router.post('/',protect,checkAdmin,upload.single('image'), addBackgroundImage);
-router.put('/:id',protect,checkAdmin, upload.single('image'), updateBackgroundImage);
+router.post('/',protect,checkAdmin,addBackgroundImage);
+router.put('/:id',protect,checkAdmin,updateBackgroundImage);
 router.delete('/:id',protect,checkAdmin,deleteBackgroundImage);
 router.put('/reorder/all',protect,checkAdmin,reorderBackgroundImages);
 

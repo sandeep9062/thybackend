@@ -1,13 +1,26 @@
-// routes/consultationRoutes.js
 import express from "express";
-import { submitConsultation } from "../controllers/consultationController.js";
+import {
+  submitConsultation,
+  getAllConsultations,
+  deleteConsultationById,
+} from "../controllers/consultationController.js";
 import upload from "../middlewares/multer.js";
-import { protect } from "../middlewares/authMiddleware.js";
+import { checkAdmin, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// `files` is the field name from the frontend
-// admin email should get message about this
-router.post("/consultation",protect, upload.array("files", 5), submitConsultation);
+// Submit consultation
+router.post(
+  "/consultation",
+  protect,
+  upload.array("files", 5),
+  submitConsultation
+);
+
+// Get all consultations (admin protected)
+router.get("/consultation", protect, checkAdmin, getAllConsultations);
+
+// Delete a consultation by ID
+router.delete("/consultation/:id", protect, checkAdmin, deleteConsultationById);
 
 export default router;
