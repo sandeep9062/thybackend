@@ -6,19 +6,24 @@ export const createService = async (req, res) => {
     const {
       title,
       description,
+      detailedDescription,
       price,
       duration,
       rating,
       patients,
       isPopular,
       category,
-      image,     // image URL passed directly
+      image, // Cloudinary URL or direct link
       imageAlt,
+      additionalImages,
+      features,
+      requirements
     } = req.body;
 
     const newService = await Service.create({
       title,
       description,
+      detailedDescription,
       price,
       duration,
       rating,
@@ -27,6 +32,9 @@ export const createService = async (req, res) => {
       category,
       image,
       imageAlt,
+      additionalImages,
+      features,
+      requirements
     });
 
     res.status(201).json({ success: true, service: newService });
@@ -49,7 +57,9 @@ export const getAllServices = async (req, res) => {
 export const getServiceById = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
-    if (!service) return res.status(404).json({ message: "Service not found" });
+    if (!service)
+      return res.status(404).json({ success: false, message: "Service not found" });
+
     res.status(200).json({ success: true, service });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -64,7 +74,6 @@ export const deleteService = async (req, res) => {
       return res.status(404).json({ success: false, message: "Service not found" });
 
     await Service.findByIdAndDelete(req.params.id);
-
     res.status(200).json({ success: true, message: "Service deleted successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -77,19 +86,7 @@ export const updateService = async (req, res) => {
     const {
       title,
       description,
-      price,
-      duration,
-      rating,
-      patients,
-      isPopular,
-      category,
-      image,      // image passed as URL string
-      imageAlt,
-    } = req.body;
-
-    const updates = {
-      title,
-      description,
+      detailedDescription,
       price,
       duration,
       rating,
@@ -98,6 +95,26 @@ export const updateService = async (req, res) => {
       category,
       image,
       imageAlt,
+      additionalImages,
+      features,
+      requirements
+    } = req.body;
+
+    const updates = {
+      title,
+      description,
+      detailedDescription,
+      price,
+      duration,
+      rating,
+      patients,
+      isPopular,
+      category,
+      image,
+      imageAlt,
+      additionalImages,
+      features,
+      requirements
     };
 
     const updatedService = await Service.findByIdAndUpdate(req.params.id, updates, {
