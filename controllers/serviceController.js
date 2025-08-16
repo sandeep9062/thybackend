@@ -21,7 +21,7 @@ export const createService = async (req, res) => {
     } = req.body;
 
     // Cloudinary file URL
-    const fileUrl = req.file ? req.file.path : null;
+    const fileUrl = req.file.path;
 
     const newService = await Service.create({
       title,
