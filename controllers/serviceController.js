@@ -20,8 +20,8 @@ export const createService = async (req, res) => {
       requirements,
     } = req.body;
 
-    // Cloudinary file URL
-    const fileUrl = req.file.path;
+    // ✅ Cloudinary file URL (multer-storage-cloudinary gives us `req.file.path`)
+    const fileUrl = req.file ? req.file.path : null;
 
     const newService = await Service.create({
       title,
@@ -34,15 +34,16 @@ export const createService = async (req, res) => {
       isPopular,
       category,
       image,
-      packageFileUrl: fileUrl, // ✅ mapped correctly
+      packageFileUrl: fileUrl,
       imageAlt,
-      additionalImages,
-      features,
-      requirements,
+      additionalImages: Array.isArray(additionalImages) ? additionalImages : additionalImages ? [additionalImages] : [],
+      features: Array.isArray(features) ? features : features ? [features] : [],
+      requirements: Array.isArray(requirements) ? requirements : requirements ? [requirements] : [],
     });
 
     res.status(201).json({ success: true, service: newService });
   } catch (error) {
+    console.error("Create Service Error:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -116,12 +117,12 @@ export const updateService = async (req, res) => {
       category,
       image,
       imageAlt,
-      additionalImages,
-      features,
-      requirements,
+      additionalImages: Array.isArray(additionalImages) ? additionalImages : additionalImages ? [additionalImages] : [],
+      features: Array.isArray(features) ? features : features ? [features] : [],
+      requirements: Array.isArray(requirements) ? requirements : requirements ? [requirements] : [],
     };
 
-    // Only update Cloudinary file if new file uploaded
+    // ✅ Update Cloudinary file if new one uploaded
     if (req.file) {
       updates.packageFileUrl = req.file.path;
     }
@@ -134,6 +135,7 @@ export const updateService = async (req, res) => {
 
     res.status(200).json({ success: true, service: updatedService });
   } catch (err) {
+    console.error("Update Service Error:", err);
     res.status(500).json({ success: false, message: err.message });
   }
 };
