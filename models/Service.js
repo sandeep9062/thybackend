@@ -12,7 +12,7 @@ const serviceSchema = new mongoose.Schema(
     isPopular: { type: Boolean, default: false },
     category: { type: String, required: true },
     image: { type: String },
-    file: { type: String }, // Cloudinary URL
+    packageFileUrl: { type: String }, // Cloudinary URL
     imageAlt: { type: String },
     additionalImages: [{ type: String }],
     features: [{ type: String }],

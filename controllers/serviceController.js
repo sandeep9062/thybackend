@@ -35,7 +35,7 @@ export const createService = async (req, res) => {
       isPopular,
       category,
       image,
-      file: fileUrl, // store cloudinary url here
+      packageFileUrl: fileUrl, // store cloudinary url here
       imageAlt,
       additionalImages,
       features,
@@ -134,7 +134,7 @@ export const updateService = async (req, res) => {
     };
 
     // Only update file if new one uploaded
-    if (fileUrl) updates.file = fileUrl;
+    if (fileUrl) updates.packageFileUrl= fileUrl;
 
     const updatedService = await Service.findByIdAndUpdate(
       req.params.id,
