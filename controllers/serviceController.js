@@ -1,7 +1,6 @@
 import Service from "../models/Service.js";
 
-// Create new service
-// Create new service
+// ✅ Create new service
 export const createService = async (req, res) => {
   try {
     const {
@@ -21,8 +20,8 @@ export const createService = async (req, res) => {
       requirements,
     } = req.body;
 
-    // ✅ Cloudinary file URL if uploaded
-    let fileUrl = req.file ? req.file.path : null;
+    // Cloudinary file URL
+    const fileUrl = req.file ? req.file.path : null;
 
     const newService = await Service.create({
       title,
@@ -35,7 +34,7 @@ export const createService = async (req, res) => {
       isPopular,
       category,
       image,
-      packageFileUrl: fileUrl, // store cloudinary url here
+      packageFileUrl: fileUrl, // ✅ mapped correctly
       imageAlt,
       additionalImages,
       features,
@@ -48,8 +47,7 @@ export const createService = async (req, res) => {
   }
 };
 
-
-// Get all services
+// ✅ Get all services
 export const getAllServices = async (req, res) => {
   try {
     const services = await Service.find().sort({ createdAt: -1 });
@@ -59,41 +57,34 @@ export const getAllServices = async (req, res) => {
   }
 };
 
-// Get single service by ID
+// ✅ Get service by ID
 export const getServiceById = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
-    if (!service)
-      return res
-        .status(404)
-        .json({ success: false, message: "Service not found" });
-
+    if (!service) {
+      return res.status(404).json({ success: false, message: "Service not found" });
+    }
     res.status(200).json({ success: true, service });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
-// Delete a service
+// ✅ Delete a service
 export const deleteService = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
-    if (!service)
-      return res
-        .status(404)
-        .json({ success: false, message: "Service not found" });
-
+    if (!service) {
+      return res.status(404).json({ success: false, message: "Service not found" });
+    }
     await Service.findByIdAndDelete(req.params.id);
-    res
-      .status(200)
-      .json({ success: true, message: "Service deleted successfully" });
+    res.status(200).json({ success: true, message: "Service deleted successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
-// Update a service
-// Update a service
+// ✅ Update a service
 export const updateService = async (req, res) => {
   try {
     const {
@@ -113,9 +104,6 @@ export const updateService = async (req, res) => {
       requirements,
     } = req.body;
 
-    // ✅ Cloudinary file URL if new file uploaded
-    let fileUrl = req.file ? req.file.path : undefined;
-
     const updates = {
       title,
       description,
@@ -133,14 +121,12 @@ export const updateService = async (req, res) => {
       requirements,
     };
 
-    // Only update file if new one uploaded
-    if (fileUrl) updates.packageFileUrl= fileUrl;
+    // Only update Cloudinary file if new file uploaded
+    if (req.file) {
+      updates.packageFileUrl = req.file.path;
+    }
 
-    const updatedService = await Service.findByIdAndUpdate(
-      req.params.id,
-      updates,
-      { new: true }
-    );
+    const updatedService = await Service.findByIdAndUpdate(req.params.id, updates, { new: true });
 
     if (!updatedService) {
       return res.status(404).json({ success: false, message: "Service not found" });
