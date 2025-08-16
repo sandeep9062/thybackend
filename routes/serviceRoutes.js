@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.get("/", getAllServices);
 router.get("/:id", getServiceById);
-router.post("/",protect,checkAdmin,createService);
-router.put("/:id", protect,checkAdmin,updateService);
+router.post("/",protect,checkAdmin,upload.single("file"),createService);
+router.put("/:id", protect,checkAdmin,upload.single("file"),updateService);
 router.delete("/:id",protect,checkAdmin, deleteService);
 
 export default router;

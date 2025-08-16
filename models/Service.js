@@ -11,11 +11,12 @@ const serviceSchema = new mongoose.Schema(
     patients: { type: Number, default: 0 },
     isPopular: { type: Boolean, default: false },
     category: { type: String, required: true },
-    image: { type: String }, // Cloudinary URL
+    image: { type: String },
+    file: { type: String }, // Cloudinary URL
     imageAlt: { type: String },
     additionalImages: [{ type: String }],
     features: [{ type: String }],
-    requirements: [{ type: String }]
+    requirements: [{ type: String }],
   },
   { timestamps: true }
 );
