@@ -116,6 +116,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+router.get("/check-token", protect, (req, res) => {
+  try {
+    return res.status(200).json({
+      success: true,
+      valid: true,
+      message: "Token is valid",
+      user: req.user, // already attached by protect middleware
+    });
+  } catch (error) {
+    console.error("Check token error:", error);
+    return res.status(500).json({
+      success: false,
+      valid: false,
+      message: "Server error while checking token",
+    });
+  }
+});
+
+
+
 // to update the profile of the user and add user pic
 router.put(
   "/profile-update",
@@ -157,7 +178,6 @@ router.put(
 router.get("/profile", protect, async (req, res) => {
   res.json({ user: req.user, message: "User Data " });
 });
-
 
 // GET /api/v1/users/:id
 router.get("/:id", async (req, res) => {
