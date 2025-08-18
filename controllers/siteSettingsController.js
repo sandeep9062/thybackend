@@ -1,5 +1,5 @@
 // controllers/siteSettingsController.js
-import { SiteSettings } from "../models/SiteSettings.js";
+import SiteSettings  from "../models/SiteSettings.js";
 
 // GET site settings
 export const getSiteSettings = async (req, res) => {

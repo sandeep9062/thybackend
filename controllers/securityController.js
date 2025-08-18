@@ -8,7 +8,7 @@ import BloodTest from "../models/BloodTest.js";
 import BusinessContact from "../models/BusinessContact.js";
 import Consultation from "../models/Consultation.js";
 import Contact from "../models/Contact.js";
-import DiagnosticCenter from "../models/DiagnosticCenter.js";
+import DiagnosticCentre from "../models/DiagnosticCentre.js";
 import FAQ from "../models/FAQ.js";
 import GlobalSettings from "../models/GlobalSettings.js";
 import MenuItem from "../models/MenuItem.js";
@@ -97,4 +97,3 @@ export  const create = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
