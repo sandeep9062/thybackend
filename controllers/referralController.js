@@ -1,4 +1,5 @@
 import Referral from "../models/Referral.js";
+import { sendReferralEmail } from "../utils/sendEmail.js"; // 👈 import new mailer
 
 // ✅ Create a new referral
 export const createReferral = async (req, res) => {
@@ -20,11 +21,15 @@ export const createReferral = async (req, res) => {
       referralCode,
     });
 
-    res.status(201).json({ message: "Referral created successfully", referral });
+    // 📩 Send referral email to friend
+    await sendReferralEmail({ referrerEmail, friendEmail, referralCode });
+
+    res.status(201).json({ message: "Referral created and email sent", referral });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 // ✅ Get all referrals (admin)
 export const getAllReferrals = async (req, res) => {
