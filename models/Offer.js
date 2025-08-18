@@ -1,4 +1,3 @@
-// models/Offer.js
 import mongoose from "mongoose";
 
 const offerSchema = new mongoose.Schema(
@@ -13,10 +12,9 @@ const offerSchema = new mongoose.Schema(
     popularity: { type: String, default: "Recommended" },
     isActive: { type: Boolean, default: true },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-const Offer = mongoose.model("Offer", offerSchema);
+// ✅ Prevent OverwriteModelError
+const Offer = mongoose.models.Offer || mongoose.model("Offer", offerSchema);
 export default Offer;

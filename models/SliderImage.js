@@ -25,6 +25,8 @@ const sliderImageSchema = new mongoose.Schema(
   }
 );
 
-const SliderImage = mongoose.model("SliderImage", sliderImageSchema);
+// ✅ Fix: Prevent model overwrite error during dev/hot-reload
+const SliderImage =
+  mongoose.models.SliderImage || mongoose.model("SliderImage", sliderImageSchema);
 
 export default SliderImage;

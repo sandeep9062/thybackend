@@ -28,7 +28,7 @@ import securityRoutes from "./routes/securityRoutes.js";
 import referralRoutes from "./routes/referralRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config();
+dotenv.config({ path: "./env.local" });
 
 connectDB();
 
