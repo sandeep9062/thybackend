@@ -1,28 +1,25 @@
+
 import User from "../models/User.js";
 import About from "../models/About.js";
 import BackgroundImage from "../models/BackgroundImage.js";
-import banner from "../models/banner.js";
-import blogpost from "../models/blogpost.js";
-import bloodtest from "../models/bloodtest.js";
-import businesscontact from "../models/businesscontact.js";
-import consultation from "../models/consultation.js";
-import contact from "../models/contact.js";
-import diagnosticcenter from "../models/DiagnosticCentre.js"
-import faq from "../models/faq.js";
-import globalsettings from "../models/globalsettings.js";
-import menuitems from "../models/MenuItem.js";
-import offer from "../models/offer.js";
-import product from "../models/product.js";
-import service from "../models/Service.js";
-import sliderimage from "../models/sliderimage.js";
-import testimonal from "../models/testimonial.js";
-import thyrocareprofile from "../models/thyrocareprofile.js";
-import thyroidpackage from "../models/thyroidpackage.js";
-import { SiteSettings } from "../models/SiteSettings.js";
-
-
-
-
+import Banner from "../models/Banner.js";
+import BlogPost from "../models/BlogPost.js";
+import BloodTest from "../models/BloodTest.js";
+import BusinessContact from "../models/BusinessContact.js";
+import Consultation from "../models/Consultation.js";
+import Contact from "../models/Contact.js";
+import DiagnosticCenter from "../models/DiagnosticCenter.js";
+import FAQ from "../models/FAQ.js";
+import GlobalSettings from "../models/GlobalSettings.js";
+import MenuItem from "../models/MenuItem.js";
+import Offer from "../models/Offer.js";
+import Product from "../models/Product.js";
+import Service from "../models/Service.js";
+import SliderImage from "../models/SliderImage.js";
+import Testimonial from "../models/Testimonial.js";
+import ThyrocareProfile from "../models/ThyrocareProfile.js";
+import ThyroidPackage from "../models/ThyroidPackage.js";
+import SiteSettings from "../models/SiteSettings.js";
 
 
 
