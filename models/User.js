@@ -36,6 +36,8 @@ const userSchema = new mongoose.Schema(
       enum: ["patient", "admin"],
       default: "patient",
     },
+    resetToken: { type: String, default: null },
+    resetTokenExpiry: { type: Date, default: null },
 
     createdAt: {
       type: Date,

@@ -27,8 +27,9 @@ import securityRoutes from "./routes/securityRoutes.js";
 
 import referralRoutes from "./routes/referralRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import authRoutes from './routes/auth.routes.js';
 
-dotenv.config({ path: "./env.local" });
+dotenv.config();
 
 connectDB();
 
@@ -71,7 +72,7 @@ app.use("/api/thyroid-packages", thyroidRoutes);
 app.use("/api/thyrocare-profile", thyrocareProfileRoutes);
 app.use("/api/security", securityRoutes);
 app.use("/api/referrals", referralRoutes);
-
+app.use('/api/auth', authRoutes);
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Server Running at http://localhost:${PORT}`);
