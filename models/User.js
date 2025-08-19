@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-// Define the User schema
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -18,13 +17,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       match: [
-        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/,
         "Please provide a valid email address",
       ],
     },
-
-    //googleId: String,
-
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -38,21 +34,13 @@ const userSchema = new mongoose.Schema(
     },
     resetToken: { type: String, default: null },
     resetTokenExpiry: { type: Date, default: null },
-
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
+    createdAt: { type: Date, default: Date.now },
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
 
-// hash user password before storing it in database
-
+// Hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   try {
@@ -64,13 +52,11 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-// method to match the user password with hashed stored password
-
+// Compare entered password with stored hash
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Export the model
 const User = mongoose.model("User", userSchema);
 
 export default User;
