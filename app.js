@@ -25,6 +25,11 @@ import thyroidRoutes from "./routes/thyroidRoutes.js";
 import thyrocareProfileRoutes from "./routes/thyrocareProfileRoutes.js";
 import securityRoutes from "./routes/securityRoutes.js";
 
+import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+
+
+
 import referralRoutes from "./routes/referralRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from './routes/auth.routes.js';
@@ -73,6 +78,11 @@ app.use("/api/thyrocare-profile", thyrocareProfileRoutes);
 app.use("/api/security", securityRoutes);
 app.use("/api/referrals", referralRoutes);
 app.use('/api/auth', authRoutes);
+
+
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Server Running at http://localhost:${PORT}`);
