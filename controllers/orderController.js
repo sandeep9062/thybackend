@@ -2,16 +2,10 @@ import Cart from "../models/Cart.js";
 import Order from "../models/Order.js";
 import { sendOrderEmail } from "../utils/sendOrderEmail.js";
 
-function requireUserId(req) {
-  const uid = req.headers["x-user-id"];
-  if (!uid) throw new Error("x-user-id header required");
-  return uid;
-}
-
 // POST /api/orders/book  (multipart/form-data; field: prescription)
 export async function bookNow(req, res) {
   try {
-    const userId = requireUserId(req);
+    const userId = req.user.id;
 
     // fetch cart
     const cart = await Cart.findOne({ userId });
@@ -31,6 +25,7 @@ export async function bookNow(req, res) {
       appointmentDate,
       appointmentTime,
       wantsHardCopy,
+      paymentId,
     } = req.body;
 
     // multer-storage-cloudinary provides either `path` or `secure_url`
@@ -54,6 +49,7 @@ export async function bookNow(req, res) {
       wantsHardCopy:
         wantsHardCopy === "true" || wantsHardCopy === true ? true : false,
       prescriptionFileUrl, // store Cloudinary URL instead of file path
+      paymentId,
     });
 
     // try sending email (don't fail order if email fails)
@@ -69,5 +65,37 @@ export async function bookNow(req, res) {
     res.status(201).json({ message: "Booking successful", order });
   } catch (e) {
     res.status(400).json({ message: e.message });
+  }
+}
+
+export async function getAllOrders(req, res) {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 });
+    res.status(200).json(orders);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export async function getOrderById(req, res) {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    res.status(200).json(order);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export async function getMyOrders(req, res) {
+  try {
+    const orders = await Order.find({ userId: req.user.id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(orders);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
 }

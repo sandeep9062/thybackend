@@ -29,8 +29,13 @@ const OrderSchema = new mongoose.Schema(
     appointmentTime: String,
     wantsHardCopy: { type: Boolean, default: false },
 
-    prescriptionFilePath: String, // optional uploaded file
-    status: { type: String, enum: ["Pending", "Confirmed", "Completed"], default: "Pending" },
+    prescriptionFileUrl: String, // optional uploaded file
+    paymentId: { type: String, required: true },
+    status: {
+      type: String,
+      enum: ["Pending", "Confirmed", "Completed"],
+      default: "Pending",
+    },
   },
   { timestamps: true }
 );
